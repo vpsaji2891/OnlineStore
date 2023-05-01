@@ -1,0 +1,53 @@
+﻿@model IEnumerable<OnlineStore.Models.Product>
+
+<h5>Product List</h5>
+
+<hr />
+
+<table class="table table-responsive-md table-list">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+
+            <th class="no-sort">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCategoryName)
+                </td>
+                <td style="text-align:right;">
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<p class="list-caption">
+    <a class="list-caption-text" asp-action="Create">Create New Product</a>
+</p>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

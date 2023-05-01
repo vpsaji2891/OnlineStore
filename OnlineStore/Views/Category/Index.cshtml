@@ -1,0 +1,49 @@
+﻿@model IEnumerable<OnlineStore.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5>Category List</h5>
+
+<hr />
+
+<table class="table table-responsive-md table-list">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategorytName)
+            </th>
+            <th class="no-sort">
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th class="no-sort">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategorytName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    @*<a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<p class="list-caption">
+    <a class="list-caption-text" asp-action="Create">Create New Category</a>
+</p>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

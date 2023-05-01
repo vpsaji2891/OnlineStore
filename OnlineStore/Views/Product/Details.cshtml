@@ -1,0 +1,109 @@
+﻿@model OnlineStore.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h5>Product Review</h5>
+    <hr />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="card-body">
+                    <img class="img-thumbnail img-responsive" src="@Model.ImgStram" />
+                    <hr />
+                    <h5 class="card-title text-center">@Model.ProductName</h5>
+                    <p class="price text-center">₹ @Model.ProductPrice </p>
+                    <input type="hidden" asp-for=@Model.Id />
+                    <hr />
+
+                </div>
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+                <div class="card-body">
+                    <p class="badge-light text-info">Comments</p>
+                </div>
+                <div class="comments-box">
+                    <div class="small" id="comments" style="overflow:auto;max-height:auto;">
+                    </div>
+
+                    <div>
+                        <textarea id="txtComment"></textarea>
+                        <button class="btn btn-sm btn-warning" id="btnAddComment">Add Comment</button>
+                    </div>
+                    <p class="text-danger" id="msgError">&nbsp;</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+
+            var productId = $('#Id').val(); //load product id at startup
+
+            GetComments(productId); //load existing product comments.
+
+            $('#btnAddComment').click(function() {
+                debugger;
+                var comment = $('#txtComment').val();
+                if (comment != '') {
+                    $.ajax({
+                        url: '/Product/AddComment',
+                        type: 'post',
+                        async: true,
+                        data: { productComment: comment, productId: productId },
+                        success: function(result) {
+                            debugger;
+                            if (result.result == true) {
+                                $('#txtComment').val('');
+                                GetComments(productId);
+                            }
+                            else {
+                               $('#msgError').html(result.message);
+                            }
+                        }
+                    });
+
+                }
+
+            });
+
+        });
+
+        function GetComments(productId) {
+
+            if (productId > 0) {
+                $.ajax({
+                    url: '/Product/GetComment',
+                    type: 'get',
+                    data: { productId: productId },
+                    success: function(result) {
+
+                        if (result != '')
+                            bindComment(result);
+                    }
+                });
+            }
+        }
+
+        function bindComment(result) {
+
+            $('#txtComment').val('');
+            var html = '';
+            for (var i = 0; i < result.length; i++) {
+                html = html + '<p class="text-success"><b>' + result[i].commentAuthor + '</b></p>'
+                html = html + '<div class="card" style="min-height:40px;padding:6px;"><p class="text-info" style="text-align:justify;">' + result[i].productComment + '</p></div>'
+                html = html + '<hr />'
+            }
+            $('#comments').html(html);
+        }
+    </script>
+
+}

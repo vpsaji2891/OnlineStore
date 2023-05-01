@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Product Page";
+}
+
+
+<div class="container-fluid product-list-container">
+    @*<div class="row style="float:left;"">
+        <div class="col-sm-12 card-body ">
+            <input type="text" class="txt-search" name="productSearch" id="productSearch" placeholder="Search Product" /> <span><input class="btn-search" type="button" id="btnSearch" value="Search" /></span>
+        </div>
+    </div>*@
+    <hr />
+    <div class="row " style="float:left;">
+        <div class="col-sm-12 card-body" style="margin:10px;">
+            <select class="form-select sort-select" name="sortOrder" id="sortOrder">
+                <option value="0" selected>Sort Order</option>
+                <option value="1">Product Price</option>
+                <option value="2">Product Category</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="productsList" class="container-fluid row ">
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        if (!IsAuthenticated()) {
+            $('#loginModal').modal('toggle');
+        }
+    </script>
+    }   

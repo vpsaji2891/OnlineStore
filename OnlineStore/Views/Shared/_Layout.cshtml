@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Store</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/img/vps_logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        @{
+            var username = Context.User.Identity.Name;
+        }
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" style="color:brown" asp-area="" asp-controller="Home" asp-action="Index"><span><img src="\img\vps_logo.png" alt="" style="height:50px;width:auto;">&nbsp;Online Store</span></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto ">
+                        <li class="nav-item ">
+                            <a class="nav-link text-success" asp-area="" asp-controller="User" asp-action="Register">  <i class="fa fa-user-plus">&nbsp;&nbsp;</i>Registration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+
+                        <li>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" name="productSearch" id="productSearch" placeholder="Search Product" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" id="btnSearch" type="submit">Search&nbsp<i class="fa fa-search"></i> </button>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn btn-warning btn-sm ml-4 mobile-margin-top" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-basket">&nbsp;&nbsp;</i> Product
+                            </a>
+                            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" asp-area="" asp-controller="Category"  asp-action="Index">Category Master</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Index">Product Master</a>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn btn-warning btn-sm ml-4 mobile-margin-top" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog">&nbsp;&nbsp;</i> Settings
+                            </a>
+                            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index"> <i class="fa fa-user-plus">&nbsp;&nbsp;</i>User Master</a>
+                                @*<div class="dropdown-divider"></div>*@
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (username != null)
+                            {
+                                <a class="nav-link dropdown-toggle btn btn-warning btn-sm ml-4 mobile-margin-top" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user">&nbsp;&nbsp;</i> @username.ToUpper()
+                                </a>
+                                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" id="btnShowLogout" class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout"> <i class="fa fa-sign-out">&nbsp;&nbsp;</i>Logout</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <a class="nav-link btn btn-warning btn-sm ml-4 mobile-margin-top" id="btnShowLogin" asp-area="" asp-controller="" asp-action=""> <i class="fa fa-sign-in">&nbsp;&nbsp;</i>Login</a>
+                            }
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        <partial name="_LoginModalWrapper" />
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <center> &copy; 2022 - OnlineStore <a asp-area="" asp-controller="" asp-action=""></a></center>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

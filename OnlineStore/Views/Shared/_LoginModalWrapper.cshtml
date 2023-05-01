@@ -1,0 +1,53 @@
+﻿
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog " role="document" id="">
+        <div class="modal-content modal-style">
+
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="ModalClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <div id="bodyWrapper">
+                    <form asp-action="Login" asp-controller="Account" id="loginForm">
+                        <div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="Email">User Name</label>
+                                <input class="form-control" placeholder="Username / Email" type="text" data-val="true" data-val-required="Please enter Email." id="loginUser" name="loginUser" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="Password">Password</label>
+                                <input class="form-control" placeholder="Password" type="password" data-val="true" data-val-required="Please enter Password." id="loginPassword" name="loginPassword" />
+                            </div>
+
+                            <label>
+                                <input type="checkbox" class="checkbox" name="chkRemember" id="chkRemember"> Remember me
+                                <input type="hidden" name="loginRemember" id="loginRemember">
+                            </label>
+                            <hr />
+                            <div class="form-group">
+                                <input type="submit" id="loginSubmit" value="Login" class="btn btn-warning float-right" />
+                            </div>
+                            <div class="form-group">
+                                <p class="text-danger" id="loginError"></p>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var LoginUrl = "@Url.Action("Login", "Account", new { area = "" })";
+    var ProductListUrl = "@Url.Action("ProductList", "Product", new { area = "" })";
+    var IsAuthenticatedUrl = "@Url.Action("IsAutheticated", "Account", new { area = "" })";
+    var ProductDetailUrl = "@Url.Action("Details", "Product", new { area = "" })";
+
+</script>
